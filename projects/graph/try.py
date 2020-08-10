@@ -1,5 +1,6 @@
-from queue import Queue
+from queue import Queue,LifoQueue
 from util import Stack
+
 class Graph:
     def __init__(self):
         self.vertices = {}
@@ -53,7 +54,28 @@ class Graph:
         
         visited =set()
         self.dfr(start,visited)
-
+   
+    def dfs(self,start,target):
+        q = Queue()
+        q.put((start,[start]))
+        while q.qsize() > 0:
+            (v, path) = q.get()
+            for i in self.vertices[v]:
+                if i == target:
+                    return path + [i]
+                else:
+                    q.put((i,path+[i]))
+                    
+    def bfs(self,start,target):
+        q = LifoQueue()
+        q.put((start,[start]))
+        while q.qsize() > 0:
+            (v, path) = q.get()
+            for i in self.vertices[v]:
+                if i == target:
+                    return path + [i]
+                else:
+                    q.put((i,path+[i]))
 
 
 
@@ -61,28 +83,27 @@ g = Graph()
 
 g.addVert("a")
 
-g.addVert("b")
-g.addVert("c")
-g.addVert("d")
-g.addVert("e")
-g.addVert("f")
+g.addVert(1)
+g.addVert(2)
+g.addVert(3)
+g.addVert(4)
+g.addVert(5)
+g.addVert(6)
 
-g.addEnds('a','d')
-g.addEnds('a','b')
-g.addEnds('a','c')
+g.addEnds(1,2)
+g.addEnds(1,4)
 
-g.addEnds('c','d')
-g.addEnds('c','a')
+g.addEnds(2,3)
+g.addEnds(2,5)
 
-g.addEnds('d','e')
-g.addEnds('d','f')
+g.addEnds(3,6)
 
-g.addEnds('e','c')
-g.addEnds('f','b')
+g.addEnds(4,3)
+# g.addEnds(4,6)
 
-
-g.dft_recursive('e')
-print()
+# g.dft_recursive('e')
+print(g.bfs(2,5))
+print(g.dfs(1,5))
 
 # g.bft('e')
-g.dft('e')
+# g.dft('e')
