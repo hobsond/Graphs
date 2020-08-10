@@ -35,9 +35,24 @@ class Graph:
                 x = self.getNeighbors(current)
                 for i in x:
                     stack.push(i)
+   
+    def dfr(self,v,visited):
+        visited.add(v)
+        x = self.getNeighbors(v)
+        
+        print(v)
+        for i in x:
+            if i not in visited:
+                self.dfr(i,visited)
+            
+            
+            
                 
+        # print(v)
+    def dft_recursive(self,start):
         
-        
+        visited =set()
+        self.dfr(start,visited)
 
 
 
@@ -66,8 +81,8 @@ g.addEnds('e','c')
 g.addEnds('f','b')
 
 
-g.bft('d')
-
+g.dft_recursive('e')
 print()
 
-g.dft('d')
+# g.bft('e')
+g.dft('e')

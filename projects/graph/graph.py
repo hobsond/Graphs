@@ -64,7 +64,16 @@ class Graph:
                 for i in x:
                     stack.push(i)
                 
-
+    def dfr(self,v,visited):
+        visited.add(v)
+        x = self.get_neighbors(v)
+        
+        print(v)
+        for i in x:
+            if i not in visited:
+                self.dfr(i,visited)
+            
+           
     def dft_recursive(self, starting_vertex):
         """
         Print each vertex in depth-first order
@@ -72,7 +81,8 @@ class Graph:
 
         This should be done using recursion.
         """
-        pass  # TODO
+        visited =set()
+        self.dfr(starting_vertex,visited)
 
     def bfs(self, starting_vertex, destination_vertex):
         """
