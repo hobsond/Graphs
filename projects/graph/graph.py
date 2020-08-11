@@ -125,7 +125,7 @@ class Graph:
                 self.dftr(i,path+[i],target)
             return path
         
-    def dfs_recursive(self, starting_vertex, destination_vertex):
+    def dfs_recursive(self, starting_vertex, destination_vertex,visited=None,path=None):
         
         """
         Return a list containing a path from
@@ -134,9 +134,30 @@ class Graph:
 
         This should be done using recursion.
         """
-        path = []
+        if visited is None:
+            visited = set()
+        # initializes a array if its the first recurssion
+        if path is None:
+            path = []
+        # makes a copy of the path so that it can mutable, and add the current node to the array>>
+        path = path +[starting_vertex]
+        # adds the current node  to visited
+        visited.add(starting_vertex)
+        # if the current node is the target return the path
+        if starting_vertex == destination_vertex:
+            return path
+        # Gets the neighbors of the current node
+        for i in self.get_neighbors(starting_vertex):
+            # if the neighbor has not already been visited 
+            if i  not in visited:
+                # set a varaible for the recursive soloution so the 
+                # path does not consistently rewrite itself 
+                new_path = self.dfs_recursive(i,destination_vertex,visited,path)
+                # i
+                if new_path is not None:
+                    return new_path
+        return None
         
-        return self.dftr(starting_vertex,path,destination_vertex)
         
         
             
