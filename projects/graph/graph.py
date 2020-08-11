@@ -72,7 +72,7 @@ class Graph:
         for i in x:
             if i not in visited:
                 self.dfr(i,visited)
-            
+    
            
     def dft_recursive(self, starting_vertex):
         """
@@ -117,7 +117,16 @@ class Graph:
                 else:
                     q.enqueue((i,path+[i]))
 
+    def dftr(self,v,path,target):
+            if v == target:
+                return path
+                
+            for i in self.vertices[v] :
+                self.dftr(i,path+[i],target)
+            return path
+        
     def dfs_recursive(self, starting_vertex, destination_vertex):
+        
         """
         Return a list containing a path from
         starting_vertex to destination_vertex in
@@ -125,7 +134,13 @@ class Graph:
 
         This should be done using recursion.
         """
-        pass  # TODO
+        path = []
+        
+        return self.dftr(starting_vertex,path,destination_vertex)
+        
+        
+            
+                
 
 if __name__ == '__main__':
     graph = Graph()  # Instantiate your graph

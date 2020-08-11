@@ -76,7 +76,38 @@ class Graph:
                     return path + [i]
                 else:
                     q.put((i,path+[i]))
+    
+                
+                    
+            
 
+    def dfs_recursive(self, starting_vertex,target,visited=None,path=None):
+        # sets the initialized to a set if it is the first instance 
+        if visited is None:
+            visited = set()
+        # initializes a array if its the first recurssion
+        if path is None:
+            path = []
+        # makes a copy of the path so that it can mutable, and add the current node to the array>>
+        path = path +[starting_vertex]
+        # adds the current node  to visited
+        visited.add(starting_vertex)
+        # if the current node is the target return the path
+        if starting_vertex == target:
+            return path
+        # Gets the neighbors of the current node
+        for i in self.getNeighbors(starting_vertex):
+            # if the neighbor has not already been visited 
+            if i  not in visited:
+                # set a varaible for the recursive soloution so the 
+                # path does not consistently rewrite itself 
+                new_path = self.dfs_recursive(i,target,visited,path)
+                # i
+                if new_path is not None:
+                    return new_path
+        return None
+        
+        
 
 
 g = Graph()
@@ -102,8 +133,7 @@ g.addEnds(4,3)
 # g.addEnds(4,6)
 
 # g.dft_recursive('e')
-print(g.bfs(2,5))
-print(g.dfs(1,5))
+print(g.dfs_recursive(1,5))
 
 # g.bft('e')
 # g.dft('e')
