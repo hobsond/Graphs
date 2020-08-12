@@ -1,6 +1,9 @@
 class User:
     def __init__(self, name):
         self.name = name
+    def __repr__(self):
+        return f"{repr(self.name)}"
+    
 
 class SocialGraph:
     def __init__(self):
@@ -27,6 +30,14 @@ class SocialGraph:
         self.last_id += 1  # automatically increment the ID to assign the new user
         self.users[self.last_id] = User(name)
         self.friendships[self.last_id] = set()
+    
+    def reset(self):
+        # Reset graph
+        self.last_id = 0
+        self.users = {}
+        self.friendships = {}
+        # !!!! IMPLEMENT ME
+        
 
     def populate_graph(self, num_users, avg_friendships):
         """
@@ -38,13 +49,11 @@ class SocialGraph:
 
         The number of users must be greater than the average number of friendships.
         """
-        # Reset graph
-        self.last_id = 0
-        self.users = {}
-        self.friendships = {}
-        # !!!! IMPLEMENT ME
-
+        
+        self.reset()
         # Add users
+        for i in range(num_users + 1 ):
+            self.add_user(f"user {i + 1}")        
 
         # Create friendships
 
@@ -65,6 +74,7 @@ class SocialGraph:
 if __name__ == '__main__':
     sg = SocialGraph()
     sg.populate_graph(10, 2)
-    print(sg.friendships)
-    connections = sg.get_all_social_paths(1)
-    print(connections)
+    print(sg.users)
+    # print(sg.friendships)
+    # connections = sg.get_all_social_paths(1)
+    # print(connections)
