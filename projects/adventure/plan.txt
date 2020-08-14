@@ -1,0 +1,19 @@
+create a dictionary for the maps out the rooms
+initialized that dictionary with the starting value and empty nsew
+create a q
+init q with the start
+create a var for steps = 0
+
+while there is still an unexplored room and qsize > 0
+    deque the q
+    You will check the exits of that room
+
+    check the len of the exits
+    create a random variable in range of the len of exits
+    if that room is not in your map of rooms 
+ connect rooms
+and add that room to your queue
+        step into the next room
+            steps +=1
+
+return your steps
