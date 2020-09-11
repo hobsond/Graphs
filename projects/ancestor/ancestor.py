@@ -66,21 +66,24 @@ def earliest_ancestor(ancestors, starting_node,path=None,visited = None,choices=
         return -1
     if h[1] and len(h[0][1]) ==len(h[1][1])   and h[0][0] > h[1][0]:
         return h[1][0]
-    return h[0]
+    return h[0][0]
+
+
+
 def rand():
-    return random.randint(1,100000045)
+    return random.randint(1,10000)
 pr = []
-for i in range(1,1000000):
+for i in range (1,1000):
     x = rand()
     y = rand()
     pr.append((x,y))
 
-while True:
+# while True:
     
 
-    jj = input('check number : ')
-    if jj == "quit":
-        break
+#     jj = input('check number : ')
+#     if jj == "quit":
+#         break
 
-    print(earliest_ancestor(pr,int(jj)))
-# print(ancestorGraph(pr)[12])
+print(earliest_ancestor(test_ancestors,8))
+# # print(ancestorGraph(pr)[12])

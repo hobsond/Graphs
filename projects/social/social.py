@@ -1,3 +1,5 @@
+import  random
+from queue import  Queue,LifoQueue
 class User:
     def __init__(self, name):
         self.name = name
@@ -52,11 +54,21 @@ class SocialGraph:
         
         self.reset()
         # Add users
-        for i in range(num_users + 1 ):
-            self.add_user(f"user {i + 1}")        
+        for i in range(num_users  ):
+            self.add_user(f"user {i }")        
 
         # Create friendships
-
+        possipleFriends = []
+        
+        for i in self.users:
+            for j in range(i+1,self.last_id+1):
+                possipleFriends.append((i,j))
+        random.shuffle(possipleFriends)
+        
+        for i in range(num_users * avg_friendships //2):
+            friends = possipleFriends[i]
+            self.add_friendship(friends[0],friends[1])
+            
     def get_all_social_paths(self, user_id):
         """
         Takes a user's user_id as an argument
@@ -67,14 +79,29 @@ class SocialGraph:
         The key is the friend's ID and the value is the path.
         """
         visited = {}  # Note that this is a dictionary, not a set
-        # !!!! IMPLEMENT ME
-        return visited
-
-
+        # init a stack 
+        q = Queue()
+        path = []
+        q.put(user_id)
+        while q.qsize() >0:
+            v = q.get()
+            path.append(v)
+            visited[v] = [len(path)]
+            for i in self.friendships[v]:
+                if i not in visited:
+                    q.put(i)
+        return visited     
+                    
+            
 if __name__ == '__main__':
     sg = SocialGraph()
-    sg.populate_graph(10, 2)
-    print(sg.users)
-    # print(sg.friendships)
-    # connections = sg.get_all_social_paths(1)
-    # print(connections)
+    sg.populate_graph(20, 4)
+    connections = sg.get_all_social_paths(6)
+    
+    # print("    connnections")
+    print(connections)
+    print()
+    print('FRIENDS')
+
+    print(sg.friendships[6])
+    

@@ -13,6 +13,8 @@ class Room:
         self.y = y
     def __str__(self):
         return f"\n-------------------\n\n{self.name}\n\n   {self.description}\n\n{self.get_exits_string()}\n"
+    def __repr__(self):
+        return f'{self.name}'
     def  roomsNextTo(self):
         return{"n":self.n_to.name,"s":self.s_to.name,"e":self.e_to.name,"w":self.w_to.name}
     def print_room_description(self, player):
